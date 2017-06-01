@@ -1,0 +1,13 @@
+<h2>Stores within 25 miles</h2>
+<h3><%= @total_stores %> Total Stores</h3>
+<div class="stores">
+  <div class="store">
+    <% @stores.each do |store|%>
+    <p><%= store.long_name %></p>
+    <p><%= store.city %></p>
+    <p><%= store.distance %></p>
+    <p><%= store.phone %></p>
+    <p><%= store.store_type %></p>
+    <% end %>
+  </div>
+</div>
