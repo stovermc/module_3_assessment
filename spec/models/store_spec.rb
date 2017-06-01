@@ -19,4 +19,11 @@ describe Store do
       expect(store.store_type).to eq("Mobile SAS")
     end
   end
+
+  context "find total stores" do
+    it ".total" do
+
+    end
+
+  end
 end
