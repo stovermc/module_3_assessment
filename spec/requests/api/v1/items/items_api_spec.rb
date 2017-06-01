@@ -11,7 +11,6 @@ describe "items API" do
 
     expect(response).to be_success
     expect(items.count).to eq 3
-    # expect(item['created_at']).to raise_error(ActiveRecord::RecordNotFound)
   end
 
   it "returns a single item" do
@@ -33,10 +32,35 @@ describe "items API" do
     post "/api/v1/items", params: item_params
 
     item = Item.last
-
     assert_response :success
     expect(response).to be_success
+
     expect(item.name).to eq "shovel"
     expect(item.description).to eq "very robust"
+  end
+
+  it "can update an existing item" do
+    item = create(:item)
+    previous_name = item.name
+    item_params = { name: "spade" }
+
+    put "/api/v1/items/#{item.id}", params: item_params
+
+    item = Item.find_by(id: item.id)
+
+    expect(response).to be_success
+    expect(item.name).to_not eq previous_name
+    expect(item.name).to eq "spade"
+  end
+
+  it "can delete an existing item" do
+    id = create(:item).id
+
+    expect(Item.count).to eq 1
+
+    delete "/api/v1/items/#{id}"
+
+    expect(Item.count).to eq 0
+    expect{Item.find(id)}.to raise_error(ActiveRecord::RecordNotFound)
   end
 end
