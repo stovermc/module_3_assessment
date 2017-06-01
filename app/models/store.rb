@@ -16,7 +16,7 @@ class Store
   def self.find_by_zip(zip)
     response = Faraday.get "https://api.bestbuy.com/v1/stores(area(#{zip},25))?format=json&show=storeId,longName,city,distance,phone,storeType&pageSize=16&apiKey=#{ENV['API_KEY']}"
     stores = JSON.parse(response.body, symbolize_names: true)[:stores]
-    stores.each do |raw_store|
+    stores.map do |raw_store|
       Store.new(raw_store)
     end
   end
