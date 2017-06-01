@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 describe "seach by zip" do
-  it "returns stores in 25mile radius" do
+  it "returns stores in 25 mile radius" do
 
   visit '/'
 
-  fill_in  
+  fill_in 
   end
 end
 # As a user
