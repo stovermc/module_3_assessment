@@ -2,10 +2,24 @@ require 'rails_helper'
 
 describe "seach by zip" do
   it "returns stores in 25 mile radius" do
+    zip = 80202
+    visit '/'
 
-  visit '/'
+    fill_in 'zip', with: zip
 
-  fill_in 
+    click_on "search"
+
+    expect(currnt_path).to eq '/search'
+    expect(page).to have_content "Stores within 25 miles of #{zip}"
+    expect(page).to have_content "16 Total Stores"
+    expect(page).to have_content
+    within first '.store' do
+      expect(page).to have_content "BEST BUY MOBILE - CHERRY CREEK SHOPPING CENTER"
+      expect(page).to have_content "DENVER"
+      expect(page).to have_content "3.45"
+      expect(page).to have_content "303-270-9189"
+      expect(page).to have_content "Mobile SAS"
+    end
   end
 end
 # As a user
